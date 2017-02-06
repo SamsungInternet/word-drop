@@ -7,17 +7,16 @@ recognition.lang = 'en-US';
 recognition.interimResults = false;
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.body.onclick = function() {
-        recognition.start();
-        console.log('listening....');
-    }
+
 });
 
 recognition.onresult = (event) => {
     let t = event.results[0][0].transcript;
     let tWords = t.split(' ');
+    let posx = tWords.length*-.35; 
     tWords.forEach((w)=>{
-        let pt = '0 5 -3';
+        let pt = posx.toString() + ' ' + getRandomArbitrary(4, 5) + ' ' + getRandomArbitrary(-3, -5);
+        posx = posx + .3;
         createWord(w, pt);
     });
     console.log('processing: ' + tWords);
@@ -36,7 +35,7 @@ recognition.onerror = (event) => {
 };
 
 let createWord = (word, pos) => {
-    let radTemp = getRandomArbitrary(0.05, 0.15);
+    let radTemp = getRandomArbitrary(0.05, 0.25);
     let masTemp = getRandomArbitrary(1, 5);
     let scaleTemp = 0.1 + Math.random();
     let containerShape = document.createElement('a-sphere');
@@ -56,4 +55,9 @@ let createWord = (word, pos) => {
 
 let getRandomArbitrary = (min, max) => {
   return Math.random() * (max - min) + min;
+}
+
+let listen = () => {
+    recognition.start();
+    console.log('listening....');
 }
