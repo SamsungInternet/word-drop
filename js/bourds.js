@@ -4,10 +4,13 @@ var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEv
 
 let recognition = new SpeechRecognition();
 recognition.lang = 'en-US';
-recognition.interimResults = false;
+recognition.interimResults = true;
+recognition.continuos = true;
+
+let btnRec;
 
 document.addEventListener('DOMContentLoaded', function() {
-
+    btnRec = document.getElementById('btnRec');
 });
 
 recognition.onresult = (event) => {
@@ -24,6 +27,7 @@ recognition.onresult = (event) => {
 
 recognition.onspeechend = () => {
   recognition.stop();
+  btnRec.setAttribute('src', '#mic');
 };
 
 recognition.onnomatch = (event) => {
@@ -58,6 +62,7 @@ let getRandomArbitrary = (min, max) => {
 }
 
 let listen = () => {
+    btnRec.setAttribute('src', '#rec');
     recognition.start();
     console.log('listening....');
 }
