@@ -23,7 +23,7 @@ AFRAME.registerSystem('boundary-checker', {
             !isBetween(pos.z, this.data.boundsZ.x, this.data.boundsZ.y)){
                 this.unRegisterMe(e);
                 document.querySelector('a-scene').removeChild(e);
-                console.log('entity removed: ' + e);
+                //console.log('entity removed: ' + e);
             }
         });
     }

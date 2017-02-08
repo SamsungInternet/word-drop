@@ -7,14 +7,15 @@ recognition.lang = 'en-US';
 recognition.interimResults = true;
 recognition.continuos = true;
 
+let listening = false;
 let btnRec;
-let onSceneWords = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     btnRec = document.getElementById('btnRec');
     
 });
 
+//Speech recognition events
 recognition.onresult = (event) => {
     let t = event.results[0][0].transcript;
     let tWords = t.split(' ');
@@ -40,6 +41,7 @@ recognition.onerror = (event) => {
   console.log(event.error);
 };
 
+//creates a mesh that serves as a container that interacts with physics on behalf of the text
 let createWord = (word, pos) => {
     let radTemp = getRandomArbitrary(0.05, 0.25);
     let masTemp = getRandomArbitrary(1, 5);
@@ -61,12 +63,22 @@ let createWord = (word, pos) => {
     document.querySelector('a-scene').systems['boundary-checker'].registerMe(containerShape);
 };
 
+//gets a random number in a range
 let getRandomArbitrary = (min, max) => {
   return Math.random() * (max - min) + min;
 }
 
-let listen = () => {
-    btnRec.setAttribute('src', '#rec');
-    recognition.start();
-    console.log('listening....');
+//toggles the listen button in the GUI
+let toggleListen = () => {
+    if(listening){
+        recognition.stop();
+        btnRec.setAttribute('src', '#mic');
+        listening = false;
+    }
+    else{
+        btnRec.setAttribute('src', '#rec');
+        recognition.start();
+        listening = true;
+        //console.log('listening....');
+    }
 }
