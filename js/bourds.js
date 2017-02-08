@@ -8,9 +8,11 @@ recognition.interimResults = true;
 recognition.continuos = true;
 
 let btnRec;
+let onSceneWords = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     btnRec = document.getElementById('btnRec');
+    
 });
 
 recognition.onresult = (event) => {
@@ -47,6 +49,7 @@ let createWord = (word, pos) => {
     containerShape.setAttribute('radius', radTemp);
     containerShape.setAttribute('material', 'transparent:true;opacity:0.0;mass:' + masTemp);
     containerShape.setAttribute('dynamic-body', '');
+    containerShape.setAttribute('class', 'sceneWord');
 
     let containedText = document.createElement('a-entity');
     containedText.setAttribute('bmfont-text', 'text:'+word+';color:#FFFFFF');
