@@ -24,7 +24,7 @@ recognition.onresult = (event) => {
         posx = posx + .3;
         createWord(w, pt);
     });
-    console.log('processing: ' + tWords);
+    //console.log('processing: ' + tWords);
 };
 
 recognition.onspeechend = () => {
@@ -57,7 +57,8 @@ let createWord = (word, pos) => {
     containedText.setAttribute('scale', scaleTemp);
 
     containerShape.appendChild(containedText);
-    document.getElementsByTagName('a-scene')[0].appendChild(containerShape);
+    document.querySelector('a-scene').appendChild(containerShape);
+    document.querySelector('a-scene').systems['boundary-checker'].registerMe(containerShape);
 };
 
 let getRandomArbitrary = (min, max) => {
